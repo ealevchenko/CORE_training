@@ -1,0 +1,49 @@
+﻿@model GL1.Models.GuestResponse
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RsvpForm</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div class="card card-success">
+        <div class="card-heading text-center"><h4>RSVP</h4></div>
+        <div class="card-body">
+            <form class="m-1 p-1" asp-action="RsvpForm" method="post">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <laЬel asp-for="Name">Your name:</laЬel>
+                    <input class="form-control" asp-for="Name" />
+                </div>
+                <div class="form-group">
+                    <laЬel asp-for="Email">Your email:</laЬel>
+                    <input class="form-control" asp-for="Email" />
+                </div>
+                <div class="form-group">
+                    <laЬel asp-for="Phone">Your phone:</laЬel>
+                    <input class="form-control" asp-for="Phone" />
+                </div>
+                <div class="form-group">
+                    <laЬel>Will you attend?</laЬel>
+                    <select class="form-control" asp-for="WillAttend">
+                        <option value="">Choose an option</option>
+                        <option value="true">Yes, I'll Ье there</option>
+                        <option value="false">No, I can't come</option>
+                    </select>
+                </div>
+                <div class="text-center"></div>
+                <button class="btn btn-primary" type="submit">SuЬmit RSVP</button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
