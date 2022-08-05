@@ -5,8 +5,9 @@ namespace LanguageFeatures.Controllers
 {
     public class HomeController : Controller
     {
-        bool FilterByPrice(Product p) { 
-        return (p?.Price ?? 0) >= 20;
+        bool FilterByPrice(Product p)
+        {
+            return (p?.Price ?? 0) >= 20;
         }
         public ViewResult Index1()
         {
@@ -95,8 +96,8 @@ namespace LanguageFeatures.Controllers
             decimal cartTotal = cart.TotalPrices();
             decimal arrayTotal = productArray.TotalPrices();
 
-            return View("Index", new string[] { 
-                $"Cart Total: {cartTotal:C2}", 
+            return View("Index", new string[] {
+                $"Cart Total: {cartTotal:C2}",
                 $"Array Total: {arrayTotal:C2}" });
         }
         public ViewResult Index8()
@@ -113,7 +114,7 @@ namespace LanguageFeatures.Controllers
 
 
             return View("Index", new string[] {
-                $"Price Total: {arrayTotal:C2}", 
+                $"Price Total: {arrayTotal:C2}",
                 $"Name Total: {nameFilterTotal:C2}"});
         }
         public ViewResult Index9()
@@ -133,7 +134,7 @@ namespace LanguageFeatures.Controllers
             decimal nameFilterTotal = productArray.Filter(nameFilter).TotalPrices();
 
             return View("Index", new string[] {
-                $"Price Total: {priceFilterTotal:C2}", 
+                $"Price Total: {priceFilterTotal:C2}",
                 $"Name Total: {nameFilterTotal:C2}"});
         }
         public ViewResult Index10()
@@ -149,14 +150,50 @@ namespace LanguageFeatures.Controllers
                 return prod?.Name?[0] == 'S';
             };
 
-            decimal priceFilterTotal = productArray.Filter(p => (p?.Price ?? 0)>=20).TotalPrices();
+            decimal priceFilterTotal = productArray.Filter(p => (p?.Price ?? 0) >= 20).TotalPrices();
             decimal nameFilterTotal = productArray.Filter(p => p?.Name?[0] == 'S').TotalPrices();
 
             return View("Index", new string[] {
-                $"Price Total: {priceFilterTotal:C2}", 
+                $"Price Total: {priceFilterTotal:C2}",
                 $"Name Total: {nameFilterTotal:C2}"});
         }
-        public ViewResult Index() => View(Product.GetProducts().Select(p=>p?.Name));
+        public ViewResult Index11() => View(Product.GetProducts().Select(p => p?.Name));
+        // Ананимный тип
+        public ViewResult Index12()
+        {
+            var names = new[] { "кауаk", "Lifejacket", "Soccer ball" };
+            return View(names);
+        }
+
+        public ViewResult Index13()
+        {
+            var products = new[] {
+                new { Name="Kayak", Price = 275M },
+                new { Name="Lifejacket", Price = 48.95M },
+                new { Name="Soccer ball", Price = 19.50M },
+                new { Name="Corner flag", Price = 34.95M },
+            };
+            //return View(products.Select(p => p.Name));
+            return View(products.Select(p => p.GetType().Name));
+        }
+        // Асинхроный метод
+        public async Task<ViewResult> Index14()
+        {
+            //long? length = await MyAsyncMethods.GetPageLength();
+            long? length = await MyAsyncMethods_Async.GetPageLength();
+            return View(new string[] { $"Length: {length}" });
+        }
+        // Получение имен
+        public ViewResult Index()
+        {
+            var products = new[] {
+                new { Name="Kayak", Price = 275M },
+                new { Name="Lifejacket", Price = 48.95M },
+                new { Name="Soccer ball", Price = 19.50M },
+                new { Name="Corner flag", Price = 34.95M },
+            };
+            return View(products.Select(p => $"{nameof(p.Name)}: {p.Name}, {nameof(p.Price)}: {p.Price}"));
+        }
 
     }
 }
