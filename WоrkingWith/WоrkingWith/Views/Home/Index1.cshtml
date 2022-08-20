@@ -1,0 +1,35 @@
+﻿@model IEnumerable<WоrkingWith.Models.Product>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Working with Vis ual Studio</title>
+@*    <link rel="stylesheet" href="css/first.css">
+    <link rel="stylesheet" href="css/second.css">*@
+    <link rel="stylesheet" href="css/bundle.min.css">
+@*    <script src="js/fourth.js"></script>
+    <script src="js/third.js"></script>*@
+    <script src="js/bundle.min.js"></script>
+</head>
+<body>
+    <h3>Products</h3>
+    <table>
+        <thead>
+            <tr><td>Name</td><td>Price</td></tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@($"{p.Price:C2}")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

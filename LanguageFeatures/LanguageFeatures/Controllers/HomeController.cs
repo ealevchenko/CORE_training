@@ -9,7 +9,7 @@ namespace LanguageFeatures.Controllers
         {
             return (p?.Price ?? 0) >= 20;
         }
-        public ViewResult Index1()
+        public ViewResult Index()
         {
             List<string> result = new List<string>();
             foreach (Product p in Product.GetProducts())
@@ -20,7 +20,6 @@ namespace LanguageFeatures.Controllers
                 //result.Add(string.Format("Name: {0} , Price: {1}, Related: {2}", name, price, relatedName));
                 result.Add($"Name: {name}, Price: {price}, Related: {relatedName}");
             }
-
             return View(result);
         }
         public ViewResult Index2()
@@ -184,7 +183,7 @@ namespace LanguageFeatures.Controllers
             return View(new string[] { $"Length: {length}" });
         }
         // Получение имен
-        public ViewResult Index()
+        public ViewResult Index15()
         {
             var products = new[] {
                 new { Name="Kayak", Price = 275M },

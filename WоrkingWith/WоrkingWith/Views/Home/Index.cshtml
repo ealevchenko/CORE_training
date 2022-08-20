@@ -8,9 +8,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Working with Vis ual Studio</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
 </head>
-<body>
-    <table>
+<body class="p-2">
+    <h3 class="text-center">Products</h3>
+    <table class="table table-bordered table-striped">
         <thead>
             <tr><td>Name</td><td>Price</td></tr>
         </thead>
@@ -19,10 +21,13 @@
             {
                 <tr>
                     <td>@p.Name</td>
-                    <td>@p.Price</td>
+                    <td>@($"{p.Price:C2}")</td>
                 </tr>
             }
         </tbody>
     </table>
+    <div class="text-center">
+        <a class="btn btn-primary"  asp-action="AddProduct">Add New Product</a>
+    </div>
 </body>
 </html>

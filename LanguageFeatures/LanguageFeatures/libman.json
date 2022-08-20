@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "filesystem",
+      "library": "C:\\Users\\edik\\.nuget\\packages\\bootstrap\\4.6.1",
+      "destination": "lib/4.6/"
+    }
+  ]
+}
