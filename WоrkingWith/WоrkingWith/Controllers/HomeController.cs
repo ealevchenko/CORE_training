@@ -5,8 +5,11 @@ namespace WоrkingWith.Controllers
 {
     public class HomeController : Controller
     {
-        SimpleRepository Repository = SimpleRepository.SharedRepository;
-        public IActionResult Index() => View(SimpleRepository.SharedRepository.Products.Where(p => p.Price < 50));
+        
+        public IRepository Repository = SimpleRepository.SharedRepository;
+        
+        //SimpleRepository Repository = SimpleRepository.SharedRepository;
+        public IActionResult Index() => View(Repository.Products);
         public IActionResult Index1() => View(SimpleRepository.SharedRepository.Products.Where(p => p.Price < 50));
         //=> View(SimpleRepository.SharedRepository.Products);
 
