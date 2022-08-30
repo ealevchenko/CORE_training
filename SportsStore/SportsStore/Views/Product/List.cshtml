@@ -1,13 +1,12 @@
-﻿@model IEnumerable<SportsStore.Models.Product>
+﻿@model ProductsListViewModel
 
 @{
     ViewData["Title"] = "SportsStore";
 }
-@foreach (var p in Model)
+@foreach (var p in Model.Products)
 {
-    <div>
-        <hЗ>@p.Name</hЗ>
-        @p.Description
-        <h4>@p.Price.ToString("c")</h4>
-    </div>
+    @Html.Partial("ProductSemmary", p)
 }
+
+<div page-model="@Model.PaginsInfo" page-action="List" page-classes-enabled="true" page-class="btn" page-class-normal="btn-secondary" page-class-selected="btn-primary" class="btn-group pull-right m-1">
+</div>

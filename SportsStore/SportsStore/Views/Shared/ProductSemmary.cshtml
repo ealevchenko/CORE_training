@@ -1,0 +1,17 @@
+﻿@model Product
+
+    <div class="card border-primary m-1 р-1">
+        <div class="card-header bg-light p-2">
+            <h4>
+                @Model.Name
+                <span class="badge rounded-pill bg-primary" style="float:right">
+                    <small>@Model.Price.ToString("c")</small>
+                </span>
+            </h4>
+        </div>
+        <div class="card-body">
+            <hЗ>@Model.Name</hЗ>
+            @Model.Description
+            <h4>@Model.Price.ToString("c")</h4>
+        </div>
+    </div>

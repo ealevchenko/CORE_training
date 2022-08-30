@@ -1,13 +1,17 @@
+using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-// Регистрация службы хранилища
-builder.Services.AddTransient<IProductRepository, FakeProductRepository>();
 
-//builder.Configuration.AddIniFile("appsettings.ini");
+IConfiguration Configuration = builder.Configuration;
+var connectionString = Configuration["Data:SportStoreProducts:ConnectionString"];
+builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddTransient<IProductRepository, EFProuctRepository>();
+
+//app.AddMvc(options => options.EnableEndpointRouting = false);
 
 
 var app = builder.Build();
@@ -38,8 +42,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Product}/{action=List}/{id?}");
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllerRoute(name: "pagination", pattern: "products/Page{productpage}", defaults:new { Controller = "Product", action = "List"});
+    endpoints.MapControllerRoute(name: "default", pattern: "{controller=Product}/{action=List}/{id?}");
+});
+
+SeetData.EnsurePopulated(app);
 
 app.Run();
+
