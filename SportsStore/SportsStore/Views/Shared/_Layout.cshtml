@@ -5,12 +5,24 @@
     <meta name="viewport" content="width=device-width" />
     @*<link rel="stylesheet" asp-href-include="/lib/bootstrap/dist/**/*.min.css" asp-href-exclude="**/*-reboot*,**/*-grid*" />*@
     <link rel="stylesheet" asp-href-include="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-href-exclude="**/*-reboot*,**/*-grid*" />
+    <link rel="stylesheet" asp-href-include="~/lib/fontawesome/4.7.0/Content/font-awesome.min.css" />
+
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="navbar navbar-dark bg-dark p-2" role="navigation"><a class="navbar-brand" href="#">SPORTS STORE</a></div>
+    <div class="navbar navbar-dark bg-dark p-2" role="navigation">
+        <div class="row">
+            <a class="col navbar-brand" href="#">SPORTS STORE</a>
+            <div class="col-4 text-right">
+                @await Component.InvokeAsync("CartSummary")
+            </div>
+        </div>
+
+    </div>
     <div class="row m-1 p-1">
-        <div id="categories" class="col-3">Put something useful here later</div>
+        <div id="categories" class="col-3">
+            @await Component.InvokeAsync("NavigationMenu")
+        </div>
         <div class="col-9">
             @RenderBody()
         </div>
