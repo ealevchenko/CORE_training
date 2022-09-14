@@ -8,7 +8,9 @@ builder.Services.AddControllersWithViews();
 
 IConfiguration Configuration = builder.Configuration;
 var connectionString = Configuration["Data:SportStoreProducts:ConnectionString"];
+
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connectionString));
+
 builder.Services.AddTransient<IProductRepository, EFProuctRepository>();
 builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
 
@@ -20,9 +22,9 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 // Включение поддержки сеансов
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
-//app.AddMvc(options => options.EnableEndpointRouting = false);
-var app = builder.Build();
 
+var app = builder.Build();
+//app.AddMvc(options => options.EnableEndpointRouting = false);
 IConfiguration configuration = app.Configuration;
 
 // Configure the HTTP request pipeline.
