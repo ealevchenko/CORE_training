@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
 
 namespace SportsStore.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IProductRepository repository;
@@ -11,10 +13,9 @@ namespace SportsStore.Controllers
         {
             repository = repo;
         }
+
         public IActionResult Index() => View(repository.Products);
-
         public ViewResult Edit(int productid) => View(repository.Products.FirstOrDefault(p => p.ProductID == productid));
-
         [HttpPost]
         public IActionResult Edit(Product product)
         {
@@ -30,9 +31,7 @@ namespace SportsStore.Controllers
                 return View(product);
             }
         }
-
         public ViewResult Create() => View("Edit", new Product());
-
         [HttpPost]
         public IActionResult Delete(int productid)
         {

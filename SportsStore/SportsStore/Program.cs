@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SportsStore.Models;
 
@@ -8,8 +9,12 @@ builder.Services.AddControllersWithViews();
 
 IConfiguration Configuration = builder.Configuration;
 var connectionString = Configuration["Data:SportStoreProducts:ConnectionString"];
+var connectionStringIdentity = Configuration["Data:SportStoreIdentity:ConnectionString"];
 
 builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddDbContext<AppIdentityDbContext>(x => x.UseSqlServer(connectionStringIdentity));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddTransient<IProductRepository, EFProuctRepository>();
 builder.Services.AddTransient<IOrderRepository, EFOrderRepository>();
@@ -51,6 +56,8 @@ app.UseAuthorization();
 
 app.UseSession();
 
+app.UseAuthentication();
+
 app.UseEndpoints(endpoints => {
     endpoints.MapControllerRoute(name: null, pattern: "{category}/Page{productPage:int}", defaults:new { Controller = "Product", action = "List"});
     endpoints.MapControllerRoute(name: null, pattern: "Page{productPage:int}", defaults:new { Controller = "Product", action = "List", productPage =1});   
@@ -60,6 +67,6 @@ app.UseEndpoints(endpoints => {
 });
 
 SeetData.EnsurePopulated(app);
-
+IdentitySeedData.EnsurePopulated(app);
 app.Run();
 
